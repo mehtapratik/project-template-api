@@ -5,14 +5,14 @@ import express from 'express';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import morgan from 'morgan';
-
-import config from './config';
 import localtunnel from 'localtunnel';
 
+import config from './config';
+
 const app = express();
-const portNo = config.port;
-const ltSubdomain = config.ltSubdomain;
-const permittedEndpoints = config.permittedEndpoints;
+const portNo = config.server.port;
+const ltSubdomain = config.server.ltSubdomain;
+const permittedEndpoints = config.server.permittedEndpoints;
 
 app.disable('x-powered-by');
 
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 
 app.listen(portNo, () => {
    if (ltSubdomain) {
-      localtunnel(portNo, { subdomain: ltSubdomain || 'apitest' }, function(err, tunnel) {
+      localtunnel(portNo, { subdomain: ltSubdomain }, function(err, tunnel) {
          if (err) throw new Error(err);
          console.log(`Listening @ http://localhost:${portNo} & ${tunnel.url}`);
       });

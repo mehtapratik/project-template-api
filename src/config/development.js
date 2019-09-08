@@ -1,6 +1,8 @@
 const devSettings = {
-   port: 3001,
-   corsEndpoints: null
+   server: {
+      port: 3001,
+      permittedEndpoints: null
+   }
 };
 
 export default devSettings;
